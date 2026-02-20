@@ -1,44 +1,66 @@
 #include <Arduino.h>
+
 /**
  * @file main.ino
  * @brief Embedded Force Measurement System using FSR
- * @author YOUR_NAME
- * @date YYYY-MM-DD
+ * @author Kushagra Kulshrestha
+ * @date 2026-02-20
  *
  * @details
  * Reads analog force data from FSR sensor and
  * displays structured output via Serial Monitor.
  */
 
- // TODO 1:
- // Define FSR analog pin (Use A0)
+/* ===========================
+   Global Definitions
+   =========================== */
 
- // TODO 2:
- // Create variable to store sensor reading
+/** @brief Analog pin connected to FSR */
+const uint8_t FSR_PIN = A0;
+
+/** @brief Variable to store raw ADC reading */
+uint16_t fsrRawValue = 0;
+/** @brief Threshold value to detect applied pressure */
+const uint16_t PRESSURE_THRESHOLD = 100;
 
 void setup() {
 
-    // TODO 3:
-    // Initialize Serial communication (9600 baud rate)
+    /**
+     * @brief Initializes serial communication
+     */
+    Serial.begin(9600);
 
-    // TODO 4:
-    // Print system initialization message
+    while (!Serial) {
+        ; // Wait for Serial (recommended for Uno R4)
+    }
+
+    /**
+     * @brief System startup message
+     */
+    Serial.println("=================================");
+    Serial.println(" Embedded Force Measurement System ");
+    Serial.println(" FSR Sensor Initialized ");
+    Serial.println("=================================");
 }
 
 void loop() {
 
-    // TODO 5:
-    // Read analog value from FSR
+    fsrRawValue = analogRead(FSR_PIN);
 
-    // TODO 6:
-    // Print raw ADC value
+    Serial.println("-----------------------------");
+    Serial.print("Raw ADC Value: ");
+    Serial.println(fsrRawValue);
 
-    // TODO 7:
-    // Apply simple threshold logic (e.g., detect pressure)
+    if (fsrRawValue > PRESSURE_THRESHOLD) {
+        Serial.println("Status: PRESSURE DETECTED");
+    } else {
+        Serial.println("Status: NO PRESSURE");
+    }
 
-    // TODO 8:
-    // Print pressure detection message
+    Serial.println("-----------------------------\n");
 
-    // TODO 9:
-    // Add delay (500ms or 1 second)
+    /**
+     * @brief Sampling delay (500 ms)
+     */
+    delay(500);
 }
