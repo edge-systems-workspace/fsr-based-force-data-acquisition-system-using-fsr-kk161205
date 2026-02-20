@@ -20,6 +20,8 @@ const uint8_t FSR_PIN = A0;
 
 /** @brief Variable to store raw ADC reading */
 uint16_t fsrRawValue = 0;
+/** @brief Threshold value to detect applied pressure */
+const uint16_t PRESSURE_THRESHOLD = 100;
 
 void setup() {
 
@@ -43,14 +45,17 @@ void setup() {
 
 void loop() {
 
-    /**
-     * @brief Read raw analog value from FSR
-     */
     fsrRawValue = analogRead(FSR_PIN);
 
-    /**
-     * @brief Print raw ADC value
-     */
     Serial.print("Raw ADC Value: ");
     Serial.println(fsrRawValue);
+
+    /**
+     * @brief Simple threshold-based pressure detection
+     */
+    if (fsrRawValue > PRESSURE_THRESHOLD) {
+        Serial.println("Pressure Detected!");
+    } else {
+        Serial.println("No Significant Pressure.");
+    }
 }
