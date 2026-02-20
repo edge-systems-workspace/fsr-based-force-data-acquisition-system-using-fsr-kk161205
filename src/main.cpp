@@ -47,15 +47,20 @@ void loop() {
 
     fsrRawValue = analogRead(FSR_PIN);
 
+    Serial.println("-----------------------------");
     Serial.print("Raw ADC Value: ");
     Serial.println(fsrRawValue);
 
-    /**
-     * @brief Simple threshold-based pressure detection
-     */
     if (fsrRawValue > PRESSURE_THRESHOLD) {
-        Serial.println("Pressure Detected!");
+        Serial.println("Status: PRESSURE DETECTED");
     } else {
-        Serial.println("No Significant Pressure.");
+        Serial.println("Status: NO PRESSURE");
     }
+
+    Serial.println("-----------------------------\n");
+
+    /**
+     * @brief Sampling delay (500 ms)
+     */
+    delay(500);
 }
