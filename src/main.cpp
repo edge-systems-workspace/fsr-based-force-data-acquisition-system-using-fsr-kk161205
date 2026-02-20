@@ -23,6 +23,22 @@ uint16_t fsrRawValue = 0;
 
 void setup() {
 
+    /**
+     * @brief Initializes serial communication
+     */
+    Serial.begin(9600);
+
+    while (!Serial) {
+        ; // Wait for Serial (recommended for Uno R4)
+    }
+
+    /**
+     * @brief System startup message
+     */
+    Serial.println("=================================");
+    Serial.println(" Embedded Force Measurement System ");
+    Serial.println(" FSR Sensor Initialized ");
+    Serial.println("=================================");
 }
 
 void loop() {
